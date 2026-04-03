@@ -46,8 +46,8 @@ export default function Home() {
         <Link href="/chat" style={{
           display: 'inline-block',
           padding: '12px 36px',
-          border: '1px solid #00d4aa',
-          color: '#00d4aa',
+          border: '1px solid #FF9500',
+          color: '#FF9500',
           fontFamily: "'Courier New', monospace",
           fontSize: '12px',
           letterSpacing: '0.2em',
@@ -58,12 +58,12 @@ export default function Home() {
           transition: 'all 0.2s',
         }}
           onMouseEnter={e => {
-            (e.target as HTMLElement).style.background = '#00d4aa'
+            (e.target as HTMLElement).style.background = '#FF9500'
             ;(e.target as HTMLElement).style.color = '#04060e'
           }}
           onMouseLeave={e => {
             (e.target as HTMLElement).style.background = 'rgba(4, 6, 14, 0.7)'
-            ;(e.target as HTMLElement).style.color = '#00d4aa'
+            ;(e.target as HTMLElement).style.color = '#FF9500'
           }}
         >
           ENTER
@@ -95,13 +95,13 @@ export default function Home() {
         justifyContent: 'center', gap: '40px', zIndex: 100,
         fontFamily: "'Courier New', monospace", fontSize: '11px', letterSpacing: '0.1em',
       }}>
-        <span style={{ color: '#4a9eff' }}>OPERATOR: <span style={{ color: '#00d4aa' }}>CHRIS ANDRADE</span></span>
+        <span style={{ color: '#4a9eff' }}>OPERATOR: <span style={{ color: '#FF9500' }}>CHRIS ANDRADE</span></span>
         <span style={{ color: '#1a2035' }}>|</span>
         <span style={{ color: '#4a9eff' }}>SYSTEM: <span style={{ color: '#00d4aa' }}>TORQUE OS</span></span>
         <span style={{ color: '#1a2035' }}>|</span>
         <span style={{ color: '#4a9eff' }}>STATUS: <span style={{ color: '#2ecc71' }}>ACTIVE</span></span>
         <span style={{ color: '#1a2035' }}>|</span>
-        <span style={{ color: '#4a9eff' }}>VERSION: <span style={{ color: '#00d4aa' }}>V1.0</span></span>
+        <span style={{ color: '#4a9eff' }}>VERSION: <span style={{ color: '#FF9500' }}>V1.0</span></span>
       </div>
 
     </main>
