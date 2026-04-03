@@ -34,40 +34,91 @@ export default function Home() {
         <Spline scene="https://prod.spline.design/jAe6bg4MRe9H0Wd4/scene.splinecode" />
       </div>
 
-      {/* CENTER CTA */}
+      {/* CENTER — TITLE + CTA */}
       <div style={{
         position: 'fixed',
-        bottom: '80px',
+        top: '50%',
         left: '50%',
-        transform: 'translateX(-50%)',
+        transform: 'translate(-50%, -50%)',
         zIndex: 100,
         textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '28px',
       }}>
+        <div style={{
+          fontFamily: "'Courier New', monospace",
+          fontSize: '13px',
+          letterSpacing: '0.35em',
+          color: '#4a9eff',
+          textTransform: 'uppercase',
+        }}>
+          THE POLYMATH GUILD
+        </div>
         <Link href="/chat" style={{
           display: 'inline-block',
-          padding: '12px 36px',
+          padding: '20px 48px',
           border: '1px solid #FF9500',
           color: '#FF9500',
           fontFamily: "'Courier New', monospace",
-          fontSize: '12px',
-          letterSpacing: '0.2em',
+          fontSize: '22px',
+          letterSpacing: '0.18em',
           textDecoration: 'none',
           textTransform: 'uppercase',
-          background: 'rgba(4, 6, 14, 0.7)',
-          backdropFilter: 'blur(6px)',
+          background: 'rgba(4, 6, 14, 0.75)',
+          backdropFilter: 'blur(8px)',
           transition: 'all 0.2s',
+          whiteSpace: 'nowrap',
         }}
           onMouseEnter={e => {
             (e.target as HTMLElement).style.background = '#FF9500'
             ;(e.target as HTMLElement).style.color = '#04060e'
           }}
           onMouseLeave={e => {
-            (e.target as HTMLElement).style.background = 'rgba(4, 6, 14, 0.7)'
+            (e.target as HTMLElement).style.background = 'rgba(4, 6, 14, 0.75)'
             ;(e.target as HTMLElement).style.color = '#FF9500'
           }}
         >
-          ENTER
+          HAVE A CONVERSATION
         </Link>
+      </div>
+
+      {/* LEFT HUD */}
+      <div style={{
+        position: 'fixed',
+        left: '24px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        zIndex: 100,
+        fontFamily: "'Courier New', monospace",
+        fontSize: '10px',
+        letterSpacing: '0.12em',
+      }}>
+        <span style={{ color: '#4a9eff' }}>OPERATOR<br /><span style={{ color: '#FF9500' }}>CHRIS ANDRADE</span></span>
+        <span style={{ color: '#4a9eff' }}>SYSTEM<br /><span style={{ color: '#00d4aa' }}>TORQUE OS</span></span>
+      </div>
+
+      {/* RIGHT HUD */}
+      <div style={{
+        position: 'fixed',
+        right: '24px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        zIndex: 100,
+        fontFamily: "'Courier New', monospace",
+        fontSize: '10px',
+        letterSpacing: '0.12em',
+        textAlign: 'right',
+      }}>
+        <span style={{ color: '#4a9eff' }}>STATUS<br /><span style={{ color: '#2ecc71' }}>ACTIVE</span></span>
+        <span style={{ color: '#4a9eff' }}>VERSION<br /><span style={{ color: '#FF9500' }}>V1.0</span></span>
       </div>
 
       {/* TOP RIGHT — date + live dot */}
@@ -87,22 +138,12 @@ export default function Home() {
         }} />
       </div>
 
-      {/* BOTTOM HUD */}
+      {/* BOTTOM BAR — minimal */}
       <div style={{
-        position: 'fixed', bottom: 0, left: 0, right: 0, height: '36px',
-        background: 'rgba(4, 6, 14, 0.82)', borderTop: '1px solid #0d1628',
-        backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center',
-        justifyContent: 'center', gap: '40px', zIndex: 100,
-        fontFamily: "'Courier New', monospace", fontSize: '11px', letterSpacing: '0.1em',
-      }}>
-        <span style={{ color: '#4a9eff' }}>OPERATOR: <span style={{ color: '#FF9500' }}>CHRIS ANDRADE</span></span>
-        <span style={{ color: '#1a2035' }}>|</span>
-        <span style={{ color: '#4a9eff' }}>SYSTEM: <span style={{ color: '#00d4aa' }}>TORQUE OS</span></span>
-        <span style={{ color: '#1a2035' }}>|</span>
-        <span style={{ color: '#4a9eff' }}>STATUS: <span style={{ color: '#2ecc71' }}>ACTIVE</span></span>
-        <span style={{ color: '#1a2035' }}>|</span>
-        <span style={{ color: '#4a9eff' }}>VERSION: <span style={{ color: '#FF9500' }}>V1.0</span></span>
-      </div>
+        position: 'fixed', bottom: 0, left: 0, right: 0, height: '28px',
+        background: 'rgba(4, 6, 14, 0.6)', borderTop: '1px solid #0d1628',
+        backdropFilter: 'blur(4px)', zIndex: 100,
+      }} />
 
     </main>
   )
