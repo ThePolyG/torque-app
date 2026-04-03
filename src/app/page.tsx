@@ -97,11 +97,11 @@ export default function Home() {
         fontFamily: "'Courier New', monospace",
       }}>
         <div>
-          <div style={{ color: '#4a9eff', fontSize: '10px', letterSpacing: '0.25em', marginBottom: '6px' }}>OPERATOR</div>
+          <div style={{ color: '#4a9eff', fontSize: '18px', letterSpacing: '0.2em', marginBottom: '8px' }}>OPERATOR</div>
           <div style={{ color: '#FF9500', fontSize: '28px', fontWeight: 'bold', letterSpacing: '0.06em', lineHeight: 1.1 }}>CHRIS<br />ANDRADE</div>
         </div>
         <div>
-          <div style={{ color: '#4a9eff', fontSize: '10px', letterSpacing: '0.25em', marginBottom: '6px' }}>SYSTEM</div>
+          <div style={{ color: '#4a9eff', fontSize: '18px', letterSpacing: '0.2em', marginBottom: '8px' }}>SYSTEM</div>
           <div style={{ color: '#00d4aa', fontSize: '28px', fontWeight: 'bold', letterSpacing: '0.06em', lineHeight: 1.1 }}>TORQUE<br />OS</div>
         </div>
       </div>
@@ -120,11 +120,11 @@ export default function Home() {
         textAlign: 'right',
       }}>
         <div>
-          <div style={{ color: '#4a9eff', fontSize: '10px', letterSpacing: '0.25em', marginBottom: '6px' }}>STATUS</div>
+          <div style={{ color: '#4a9eff', fontSize: '18px', letterSpacing: '0.2em', marginBottom: '8px' }}>STATUS</div>
           <div style={{ color: '#2ecc71', fontSize: '28px', fontWeight: 'bold', letterSpacing: '0.06em', lineHeight: 1.1 }}>ACTIVE</div>
         </div>
         <div>
-          <div style={{ color: '#4a9eff', fontSize: '10px', letterSpacing: '0.25em', marginBottom: '6px' }}>VERSION</div>
+          <div style={{ color: '#4a9eff', fontSize: '18px', letterSpacing: '0.2em', marginBottom: '8px' }}>VERSION</div>
           <div style={{ color: '#FF9500', fontSize: '28px', fontWeight: 'bold', letterSpacing: '0.06em', lineHeight: 1.1 }}>V1.0</div>
         </div>
       </div>

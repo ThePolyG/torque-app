@@ -39,26 +39,26 @@ main {
 }
 
 .race-cyan {
-  position: fixed;
-  bottom: 14px;
-  left: -200px;
-  width: 180px;
-  height: 2px;
-  background: linear-gradient(to right, transparent, #00d4aa, #00d4aa);
-  box-shadow: 0 0 8px #00d4aa, 0 0 20px #00d4aa;
-  animation: raceCyan 3.8s linear infinite;
-  z-index: 200;
+  position: absolute;
+  top: 6px;
+  left: -300px;
+  width: 220px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #00d4aa 60%, #ffffff);
+  box-shadow: 0 0 10px #00d4aa, 0 0 28px #00d4aa, 0 0 48px #00d4aa;
+  animation: raceCyan 3.2s linear infinite;
+  z-index: 201;
 }
 
 .race-amber {
-  position: fixed;
-  bottom: 10px;
-  left: -200px;
-  width: 140px;
-  height: 2px;
-  background: linear-gradient(to right, transparent, #FF9500, #FF9500);
-  box-shadow: 0 0 8px #FF9500, 0 0 20px #FF9500;
-  animation: raceAmber 3.8s linear infinite;
-  animation-delay: 1.4s;
-  z-index: 200;
+  position: absolute;
+  top: 14px;
+  left: -300px;
+  width: 180px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #FF9500 60%, #ffffff);
+  box-shadow: 0 0 10px #FF9500, 0 0 28px #FF9500, 0 0 48px #FF9500;
+  animation: raceAmber 3.2s linear infinite;
+  animation-delay: 1.2s;
+  z-index: 201;
 }
