@@ -87,38 +87,46 @@ export default function Home() {
       {/* LEFT HUD */}
       <div style={{
         position: 'fixed',
-        left: '24px',
+        left: '32px',
         top: '50%',
         transform: 'translateY(-50%)',
         display: 'flex',
         flexDirection: 'column',
-        gap: '16px',
+        gap: '32px',
         zIndex: 100,
         fontFamily: "'Courier New', monospace",
-        fontSize: '10px',
-        letterSpacing: '0.12em',
       }}>
-        <span style={{ color: '#4a9eff' }}>OPERATOR<br /><span style={{ color: '#FF9500' }}>CHRIS ANDRADE</span></span>
-        <span style={{ color: '#4a9eff' }}>SYSTEM<br /><span style={{ color: '#00d4aa' }}>TORQUE OS</span></span>
+        <div>
+          <div style={{ color: '#4a9eff', fontSize: '10px', letterSpacing: '0.25em', marginBottom: '6px' }}>OPERATOR</div>
+          <div style={{ color: '#FF9500', fontSize: '28px', fontWeight: 'bold', letterSpacing: '0.06em', lineHeight: 1.1 }}>CHRIS<br />ANDRADE</div>
+        </div>
+        <div>
+          <div style={{ color: '#4a9eff', fontSize: '10px', letterSpacing: '0.25em', marginBottom: '6px' }}>SYSTEM</div>
+          <div style={{ color: '#00d4aa', fontSize: '28px', fontWeight: 'bold', letterSpacing: '0.06em', lineHeight: 1.1 }}>TORQUE<br />OS</div>
+        </div>
       </div>
 
       {/* RIGHT HUD */}
       <div style={{
         position: 'fixed',
-        right: '24px',
+        right: '32px',
         top: '50%',
         transform: 'translateY(-50%)',
         display: 'flex',
         flexDirection: 'column',
-        gap: '16px',
+        gap: '32px',
         zIndex: 100,
         fontFamily: "'Courier New', monospace",
-        fontSize: '10px',
-        letterSpacing: '0.12em',
         textAlign: 'right',
       }}>
-        <span style={{ color: '#4a9eff' }}>STATUS<br /><span style={{ color: '#2ecc71' }}>ACTIVE</span></span>
-        <span style={{ color: '#4a9eff' }}>VERSION<br /><span style={{ color: '#FF9500' }}>V1.0</span></span>
+        <div>
+          <div style={{ color: '#4a9eff', fontSize: '10px', letterSpacing: '0.25em', marginBottom: '6px' }}>STATUS</div>
+          <div style={{ color: '#2ecc71', fontSize: '28px', fontWeight: 'bold', letterSpacing: '0.06em', lineHeight: 1.1 }}>ACTIVE</div>
+        </div>
+        <div>
+          <div style={{ color: '#4a9eff', fontSize: '10px', letterSpacing: '0.25em', marginBottom: '6px' }}>VERSION</div>
+          <div style={{ color: '#FF9500', fontSize: '28px', fontWeight: 'bold', letterSpacing: '0.06em', lineHeight: 1.1 }}>V1.0</div>
+        </div>
       </div>
 
       {/* TOP RIGHT — date + live dot */}
@@ -138,12 +146,15 @@ export default function Home() {
         }} />
       </div>
 
-      {/* BOTTOM BAR — minimal */}
+      {/* BOTTOM BAR + RACING LIGHT CYCLES */}
       <div style={{
         position: 'fixed', bottom: 0, left: 0, right: 0, height: '28px',
         background: 'rgba(4, 6, 14, 0.6)', borderTop: '1px solid #0d1628',
-        backdropFilter: 'blur(4px)', zIndex: 100,
-      }} />
+        backdropFilter: 'blur(4px)', zIndex: 100, overflow: 'hidden',
+      }}>
+        <div className="race-cyan" />
+        <div className="race-amber" />
+      </div>
 
     </main>
   )

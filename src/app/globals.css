@@ -18,3 +18,47 @@ main {
   width: 100%;
   height: 100%;
 }
+
+@keyframes raceCyan {
+  0%   { left: -200px; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+
+@keyframes raceAmber {
+  0%   { left: -200px; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+
+@keyframes trailFade {
+  0%   { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+.race-cyan {
+  position: fixed;
+  bottom: 14px;
+  left: -200px;
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #00d4aa, #00d4aa);
+  box-shadow: 0 0 8px #00d4aa, 0 0 20px #00d4aa;
+  animation: raceCyan 3.8s linear infinite;
+  z-index: 200;
+}
+
+.race-amber {
+  position: fixed;
+  bottom: 10px;
+  left: -200px;
+  width: 140px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #FF9500, #FF9500);
+  box-shadow: 0 0 8px #FF9500, 0 0 20px #FF9500;
+  animation: raceAmber 3.8s linear infinite;
+  animation-delay: 1.4s;
+  z-index: 200;
+}
