@@ -15,6 +15,8 @@ export default function ChatPage() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [sent, setSent] = useState(false)
+  const [sendError, setSendError] = useState('')
+  const [sending, setSending] = useState(false)
   const [showEmail, setShowEmail] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
 
@@ -37,7 +39,14 @@ export default function ChatPage() {
         body: JSON.stringify({ messages: updated }),
       })
       const data = await res.json()
-      setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
+      if (!res.ok) {
+        const errMsg = res.status === 429
+          ? 'Too many messages. Please wait a few minutes.'
+          : (data.error || 'Something went wrong. Try again.')
+        setMessages(prev => [...prev, { role: 'assistant', content: errMsg }])
+      } else {
+        setMessages(prev => [...prev, { role: 'assistant', content: data.reply }])
+      }
 
       // After 6 messages — offer to send transcript
       if (updated.length >= 6) setShowEmail(true)
@@ -48,13 +57,26 @@ export default function ChatPage() {
   }
 
   const sendTranscript = async () => {
-    if (!email.trim()) return
-    await fetch('/api/send-transcript', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, messages }),
-    })
-    setSent(true)
+    if (!email.trim() || sending) return
+    setSending(true)
+    setSendError('')
+    try {
+      const res = await fetch('/api/send-transcript', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, messages }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setSendError(data.error || 'Failed to send. Please try again.')
+      } else {
+        setSent(true)
+      }
+    } catch {
+      setSendError('Network error. Please try again.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -130,15 +152,20 @@ export default function ChatPage() {
                   fontFamily: "'Courier New', monospace", outline: 'none',
                 }}
               />
-              <button onClick={sendTranscript} style={{
+              <button onClick={sendTranscript} disabled={sending} style={{
                 background: 'transparent', border: '1px solid #00d4aa',
                 color: '#00d4aa', padding: '8px 16px', fontSize: '11px',
-                fontFamily: "'Courier New', monospace", cursor: 'pointer',
-                letterSpacing: '0.1em',
+                fontFamily: "'Courier New', monospace", cursor: sending ? 'not-allowed' : 'pointer',
+                letterSpacing: '0.1em', opacity: sending ? 0.5 : 1,
               }}>
-                SEND
+                {sending ? '···' : 'SEND'}
               </button>
             </div>
+            {sendError && (
+              <p style={{ color: '#ff4444', fontSize: '11px', marginTop: '8px', letterSpacing: '0.04em' }}>
+                {sendError}
+              </p>
+            )}
           </div>
         )}
 

@@ -29,6 +29,8 @@ function isRateLimited(ip: string): boolean {
   return false
 }
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export async function POST(req: NextRequest) {
   const ip = getIP(req)
 
@@ -39,8 +41,24 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  let email: string
+  let messages: { role: string; content: string }[]
+  try {
+    const body = await req.json()
+    email = body.email
+    messages = body.messages
+
+    if (!email || !EMAIL_REGEX.test(email)) {
+      return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 })
+    }
+    if (!Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json({ error: 'No transcript to send.' }, { status: 400 })
+    }
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 })
+  }
+
   const resend = new Resend(process.env.RESEND_API_KEY)
-  const { email, messages } = await req.json()
 
   const transcript = messages
     .map((m: { role: string; content: string }) =>
@@ -59,21 +77,29 @@ export async function POST(req: NextRequest) {
     </div>
   `
 
-  // Send to visitor
-  await resend.emails.send({
-    from: 'PMG <onboarding@resend.dev>',
-    to: email,
-    subject: 'Your Discovery Session — The Polymath Guild',
-    html,
-  })
+  try {
+    // Send to visitor
+    await resend.emails.send({
+      from: 'PMG <onboarding@resend.dev>',
+      to: email,
+      subject: 'Your Discovery Session — The Polymath Guild',
+      html,
+    })
 
-  // Send to Chris
-  await resend.emails.send({
-    from: 'PMG <onboarding@resend.dev>',
-    to: 'chris@thepolyg.com',
-    subject: `New Discovery Session — ${email}`,
-    html,
-  })
+    // Send to Chris
+    await resend.emails.send({
+      from: 'PMG <onboarding@resend.dev>',
+      to: 'chris@thepolyg.com',
+      subject: `New Discovery Session — ${email}`,
+      html,
+    })
 
-  return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true })
+  } catch (err) {
+    console.error('[send-transcript/route] Resend error:', err)
+    return NextResponse.json(
+      { error: 'Failed to send transcript. Please try again.' },
+      { status: 500 }
+    )
+  }
 }

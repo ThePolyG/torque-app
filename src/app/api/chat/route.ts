@@ -58,18 +58,35 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { messages } = await req.json()
+  let messages: { role: string; content: string }[]
+  try {
+    const body = await req.json()
+    if (!Array.isArray(body.messages) || body.messages.length === 0) {
+      return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
+    }
+    messages = body.messages
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 })
+  }
 
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 500,
-    system: SYSTEM_PROMPT,
-    messages: messages.map((m: { role: string; content: string }) => ({
-      role: m.role,
-      content: m.content,
-    })),
-  })
+  try {
+    const response = await client.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 500,
+      system: SYSTEM_PROMPT,
+      messages: messages.map((m) => ({
+        role: m.role,
+        content: m.content,
+      })),
+    })
 
-  const reply = response.content[0].type === 'text' ? response.content[0].text : ''
-  return NextResponse.json({ reply })
+    const reply = response.content[0]?.type === 'text' ? response.content[0].text : ''
+    return NextResponse.json({ reply })
+  } catch (err) {
+    console.error('[chat/route] Anthropic error:', err)
+    return NextResponse.json(
+      { error: 'Something went wrong. Please try again.' },
+      { status: 500 }
+    )
+  }
 }
