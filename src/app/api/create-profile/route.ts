@@ -112,7 +112,7 @@ export async function POST(req: NextRequest) {
   if (limited(ip)) return NextResponse.json({ ok: false, error: 'Too many submissions — please wait a bit.' }, { status: 429 })
 
   // parse multipart
-  let p: Payload
+  let p: Payload = {}
   const photos: { filename: string; buf: Buffer }[] = []
   try {
     const fd = await req.formData()
