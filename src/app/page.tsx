@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import CreateProfileModal from './components/CreateProfileModal'
 
 const Spline = dynamic(() => import('@splinetool/react-spline'), { ssr: false })
 
@@ -27,6 +28,9 @@ export default function Home() {
   }, [])
 
   return (
+    <>
+    {/* "Create Your Profile" wizard — overlays on top · does not change the landing content */}
+    <CreateProfileModal />
     <main style={{ position: 'relative', width: '100vw', height: '100vh', background: '#04060e', overflow: 'hidden' }}>
 
       {/* SPLINE WORLD */}
@@ -157,5 +161,6 @@ export default function Home() {
       </div>
 
     </main>
+    </>
   )
 }
