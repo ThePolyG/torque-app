@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import crypto from 'crypto'
+import * as crypto from 'crypto'
 
 // Use the Node runtime — we need `crypto` for the service-account JWT.
 export const runtime = 'nodejs'

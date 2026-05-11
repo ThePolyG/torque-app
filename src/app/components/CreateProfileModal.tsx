@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import GoogleMapPicker, { LatLng } from './GoogleMapPicker'
+import { useEffect, useState, useCallback, CSSProperties } from 'react'
+import GoogleMapPicker from './GoogleMapPicker'
+import type { LatLng } from './GoogleMapPicker'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CreateProfileModal — the "Get started — create your profile" wizard.
@@ -134,17 +135,17 @@ export default function CreateProfileModal() {
   if (!open) return null
 
   // ── styles ────────────────────────────────────────────────────────────────
-  const overlay: React.CSSProperties = { position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(2,4,10,0.86)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, fontFamily: C.mono }
-  const cardS: React.CSSProperties = { background: C.card, border: `1px solid ${C.cardEdge}`, borderRadius: 12, width: '100%', maxWidth: 540, maxHeight: '90vh', display: 'flex', flexDirection: 'column', color: C.text, boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }
-  const headS: React.CSSProperties = { padding: '14px 18px', borderBottom: `1px solid ${C.cardEdge}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }
-  const bodyS: React.CSSProperties = { padding: 20, overflowY: 'auto', flex: 1 }
-  const footS: React.CSSProperties = { padding: '14px 18px', borderTop: `1px solid ${C.cardEdge}`, display: 'flex', gap: 10, justifyContent: 'space-between', alignItems: 'center' }
-  const label: React.CSSProperties = { display: 'block', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.blue, marginBottom: 6, marginTop: 14 }
-  const input: React.CSSProperties = { width: '100%', padding: 11, background: C.bg, border: `1px solid ${C.cardEdge}`, borderRadius: 8, color: C.text, fontSize: 15, fontFamily: C.mono }
-  const btn: React.CSSProperties = { padding: '11px 22px', borderRadius: 999, fontFamily: C.mono, fontSize: 14, letterSpacing: '0.08em', fontWeight: 700, cursor: 'pointer', border: 'none', textTransform: 'uppercase' }
-  const btnGold: React.CSSProperties = { ...btn, background: C.orange, color: C.bg }
-  const btnGhost: React.CSSProperties = { ...btn, background: 'transparent', border: `1px solid ${C.cardEdge}`, color: C.muted }
-  const chip = (on: boolean): React.CSSProperties => ({ display: 'inline-block', padding: '8px 14px', margin: '4px 6px 4px 0', borderRadius: 999, border: `1px solid ${on ? C.orange : C.cardEdge}`, background: on ? 'rgba(255,149,0,0.12)' : C.bg, color: on ? C.orange : C.muted, fontSize: 13, cursor: 'pointer', fontFamily: C.mono })
+  const overlay: CSSProperties = { position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(2,4,10,0.86)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, fontFamily: C.mono }
+  const cardS: CSSProperties = { background: C.card, border: `1px solid ${C.cardEdge}`, borderRadius: 12, width: '100%', maxWidth: 540, maxHeight: '90vh', display: 'flex', flexDirection: 'column', color: C.text, boxShadow: '0 20px 60px rgba(0,0,0,0.5)' }
+  const headS: CSSProperties = { padding: '14px 18px', borderBottom: `1px solid ${C.cardEdge}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }
+  const bodyS: CSSProperties = { padding: 20, overflowY: 'auto', flex: 1 }
+  const footS: CSSProperties = { padding: '14px 18px', borderTop: `1px solid ${C.cardEdge}`, display: 'flex', gap: 10, justifyContent: 'space-between', alignItems: 'center' }
+  const label: CSSProperties = { display: 'block', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.blue, marginBottom: 6, marginTop: 14 }
+  const input: CSSProperties = { width: '100%', padding: 11, background: C.bg, border: `1px solid ${C.cardEdge}`, borderRadius: 8, color: C.text, fontSize: 15, fontFamily: C.mono }
+  const btn: CSSProperties = { padding: '11px 22px', borderRadius: 999, fontFamily: C.mono, fontSize: 14, letterSpacing: '0.08em', fontWeight: 700, cursor: 'pointer', border: 'none', textTransform: 'uppercase' }
+  const btnGold: CSSProperties = { ...btn, background: C.orange, color: C.bg }
+  const btnGhost: CSSProperties = { ...btn, background: 'transparent', border: `1px solid ${C.cardEdge}`, color: C.muted }
+  const chip = (on: boolean): CSSProperties => ({ display: 'inline-block', padding: '8px 14px', margin: '4px 6px 4px 0', borderRadius: 999, border: `1px solid ${on ? C.orange : C.cardEdge}`, background: on ? 'rgba(255,149,0,0.12)' : C.bg, color: on ? C.orange : C.muted, fontSize: 13, cursor: 'pointer', fontFamily: C.mono })
 
   const progressPct = Math.round((step / (STEPS.length - 1)) * 100)
 

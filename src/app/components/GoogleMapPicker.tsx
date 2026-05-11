@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, CSSProperties } from 'react'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // GoogleMapPicker — drop a pin on a satellite map, get GPS coordinates.
@@ -150,7 +150,7 @@ export default function GoogleMapPicker({
   const fmt = (p: LatLng | null) => (p ? `${p.lat.toFixed(6)}, ${p.lng.toFixed(6)}` : '—')
   const distance = origin && destination ? haversineMiles(origin, destination) : null
 
-  const wrapStyle: React.CSSProperties = {
+  const wrapStyle: CSSProperties = {
     fontFamily: "'Courier New', monospace",
     color: '#9ec5ff',
     fontSize: 13,
