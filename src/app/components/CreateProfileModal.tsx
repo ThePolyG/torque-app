@@ -66,7 +66,13 @@ export default function CreateProfileModal() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
-  const set = <K extends keyof Form>(k: K, v: Form[K]) => setF(prev => ({ ...prev, [k]: v }))
+  function set<K extends keyof Form>(k: K, v: Form[K]) {
+    setF(prev => {
+      const next: Form = { ...prev }
+      next[k] = v
+      return next
+    })
+  }
 
   // Open on first load (unless dismissed this session). Re-prompt on exit-intent.
   useEffect(() => {

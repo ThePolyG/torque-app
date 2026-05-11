@@ -175,7 +175,7 @@ export default function GoogleMapPicker({
         <div style={{ marginBottom: 8, fontSize: 12, color: placing === 'origin' ? '#00d4aa' : '#FF9500' }}>
           {placing === 'origin'
             ? '▸ Click the map to drop pin A — where the building is now.'
-            : '▸ Now click to drop pin B — where it&apos;s going.'}
+            : '▸ Now click — drop pin B — the destination.'}
           {origin && (
             <button
               type="button"
