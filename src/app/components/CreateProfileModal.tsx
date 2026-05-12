@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback, CSSProperties } from 'react'
+import { useEffect, useState, useCallback, useMemo, CSSProperties } from 'react'
 import GoogleMapPicker from './GoogleMapPicker'
 import type { LatLng } from './GoogleMapPicker'
 
@@ -66,6 +66,10 @@ export default function CreateProfileModal() {
   const [f, setF] = useState<Form>(EMPTY)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+
+  // Stable blob URLs for photo previews — created once per photos change, revoked on cleanup (no leak)
+  const photoUrls = useMemo(() => f.photos.map(p => URL.createObjectURL(p)), [f.photos])
+  useEffect(() => () => { photoUrls.forEach(u => URL.revokeObjectURL(u)) }, [photoUrls])
 
   function set<K extends keyof Form>(k: K, v: Form[K]) {
     setF(prev => {
@@ -243,7 +247,7 @@ export default function CreateProfileModal() {
               <input type="file" accept="image/*" multiple onChange={e => set('photos', Array.from(e.target.files || []).slice(0, 8))} style={{ ...input, padding: 9 }} />
               {f.photos.length > 0 && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
-                  {f.photos.map((p, i) => <img key={i} src={URL.createObjectURL(p)} alt="" style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 6, border: `1px solid ${C.cardEdge}` }} />)}
+                  {photoUrls.map((u, i) => <img key={i} src={u} alt="" style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 6, border: `1px solid ${C.cardEdge}` }} />)}
                 </div>
               )}
             </div>

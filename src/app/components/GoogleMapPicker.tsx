@@ -76,6 +76,10 @@ export default function GoogleMapPicker({
   const [destination, setDestination] = useState<LatLng | null>(null)
   // "which pin am I placing next" — only relevant in move mode
   const [placing, setPlacing] = useState<'origin' | 'destination'>('origin')
+  // ref mirror of `placing` — the click handler is registered once, so it must
+  // read current state via a ref (avoids the stale-closure bug)
+  const placingRef = useRef<'origin' | 'destination'>('origin')
+  useEffect(() => { placingRef.current = placing }, [placing])
 
   useEffect(() => {
     const dist = origin && destination ? haversineMiles(origin, destination) : null
@@ -113,31 +117,34 @@ export default function GoogleMapPicker({
           mapTypeControl: true,
         })
         mapRef.current = map
+        const dropMarker = (which: 'origin' | 'destination', pos: LatLng) => {
+          const ref = which === 'origin' ? originMarkerRef : destMarkerRef
+          if (ref.current) ref.current.setMap(null)
+          ref.current = new g.Marker({
+            position: pos,
+            map,
+            draggable: true,
+            label: which === 'origin' ? (mode === 'move' ? 'A' : '') : 'B',
+            title: which === 'origin' ? (mode === 'move' ? 'Current location' : 'Site') : 'Destination',
+          })
+          ref.current.addListener('dragend', (ev: any) => {
+            const np: LatLng = { lat: ev.latLng.lat(), lng: ev.latLng.lng() }
+            if (which === 'origin') setOrigin(np)
+            else setDestination(np)
+          })
+        }
         map.addListener('click', (e: any) => {
           const pos: LatLng = { lat: e.latLng.lat(), lng: e.latLng.lng() }
-          const dropMarker = (which: 'origin' | 'destination') => {
-            const ref = which === 'origin' ? originMarkerRef : destMarkerRef
-            if (ref.current) ref.current.setMap(null)
-            ref.current = new g.Marker({
-              position: pos,
-              map,
-              label: which === 'origin' ? (mode === 'move' ? 'A' : '') : 'B',
-              title: which === 'origin' ? (mode === 'move' ? 'Current location' : 'Site') : 'Destination',
-            })
-            ref.current.addListener('dragend', () => {})
-          }
           if (mode === 'single') {
             setOrigin(pos)
-            dropMarker('origin')
+            dropMarker('origin', pos)
+          } else if (placingRef.current === 'origin') {
+            setOrigin(pos)
+            dropMarker('origin', pos)
+            setPlacing('destination')
           } else {
-            if (placing === 'origin') {
-              setOrigin(pos)
-              dropMarker('origin')
-              setPlacing('destination')
-            } else {
-              setDestination(pos)
-              dropMarker('destination')
-            }
+            setDestination(pos)
+            dropMarker('destination', pos)
           }
         })
         setStatus('ready')

@@ -126,9 +126,17 @@ export async function POST(req: NextRequest) {
     }
   } catch { return NextResponse.json({ ok: false, error: 'Invalid submission.' }, { status: 400 }) }
 
-  if (!p.name || p.name.trim().length < 2) return NextResponse.json({ ok: false, error: 'Name is required.' }, { status: 400 })
+  // normalize string fields server-side (trim) before validation + persistence
+  const trimStr = (v?: string) => (typeof v === 'string' ? v.trim() : v)
+  p.name = trimStr(p.name); p.email = trimStr(p.email); p.phone = trimStr(p.phone)
+  p.contactMethod = trimStr(p.contactMethod); p.contactTime = trimStr(p.contactTime)
+  p.category = trimStr(p.category); p.detail = trimStr(p.detail)
+  p.timeline = trimStr(p.timeline); p.notes = trimStr(p.notes)
+  p.referral = trimStr(p.referral); p.budget = trimStr(p.budget); p.source = trimStr(p.source)
+
+  if (!p.name || p.name.length < 2) return NextResponse.json({ ok: false, error: 'Name is required.' }, { status: 400 })
   if (!p.email || !EMAIL_RE.test(p.email)) return NextResponse.json({ ok: false, error: 'A valid email is required.' }, { status: 400 })
-  if (!p.phone || p.phone.trim().length < 7) return NextResponse.json({ ok: false, error: 'A phone number is required.' }, { status: 400 })
+  if (!p.phone || p.phone.length < 7) return NextResponse.json({ ok: false, error: 'A phone number is required.' }, { status: 400 })
 
   // ── 1. Sheet (best-effort) ────────────────────────────────────────────────
   const sheet = await appendLeadRow(p, photos.length)
